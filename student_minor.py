@@ -1,4 +1,7 @@
 #print the menu
+from ast import While
+
+
 print("Select option from Menu\n-----------------------")
 print("1. Login")
 print("2. Create User")
@@ -13,13 +16,39 @@ while True:
         continue
     else:
         print("YaY! Good input")
-        break
-     
+        break     
 
-#If user chose 1, ask for user name and password and
-# - validate username and password combination in the users.txt file
-# - if not valid combination reprompt the user. 
-# - if valid then move on to prompt for student data
+
+if user_option == "1":
+    while True:
+        #If user chose 1, ask for user name and password and
+        user_name = input("Please enter your user name: ")
+        user_pass = input("Please enter your password: ")
+        # - validate username and password combination in the users.txt file
+        #open the users files
+        user_file = open("users.txt", "r")
+        user_found = False
+
+        #read the lines from the file
+        for line in user_file:
+            credentials = line.split(", ")
+             #compare username and password for a match
+            if user_name == credentials[0] and user_pass == credentials[1].rstrip():
+                user_found = True
+                break
+
+        if user_found:
+            # - if valid then move on to prompt for student data
+            print(f"User {user_name} successfully logged in!\n")
+            break
+        else:
+            # - if not valid combination reprompt the user. 
+            print(f"User {user_name} not found!\n")
+        
+       
+        
+        
+
 #If user chose 2, ask for user name and password and
 # - validate username and password length. If valid, write to users.txt file
 # - and move on
